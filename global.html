@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="demo"><span class="type-signature"></span>demo<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getDimensions"><span class="type-signature"></span>getDimensions<span class="signature">(canvasWidth, canvasHeight, imageWidth, imageHeight)</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
     
@@ -112,7 +112,8 @@
 
 
 <div class="description">
-    a function that prints "here is a demo to the console"
+    Takes in the dimensions of the canvas and the new image, then calculates the new
+dimensions of the image so that it fits perfectly into the Canvas and maintains aspect ratio
 </div>
 
 
@@ -121,6 +122,124 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>canvasWidth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Width of the canvas element to insert image into</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>canvasHeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Height of the canvas element to insert image into</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>imageWidth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Width of the new user submitted image</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>imageHeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Height of the new user submitted image</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -156,7 +275,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="test.js.html">test.js</a>, <a href="test.js.html#line21">line 21</a>
+        <a href="DailyOverview_DailyJS.js.html">DailyOverview/DailyJS.js</a>, <a href="DailyOverview_DailyJS.js.html#line107">line 107</a>
     </li></ul></dd>
     
 
@@ -181,6 +300,30 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An object containing four properties: The newly calculated width and height,
+and also the starting X and starting Y coordinate to be used when you draw the new image to the
+Canvas. These coordinates align with the top left of the image.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -245,94 +388,6 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line28">line 28</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="helloWorld"><span class="type-signature"></span>helloWorld<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    prints hello world!
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="test.js.html">test.js</a>, <a href="test.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -546,7 +601,7 @@ Show username, update text
     
 
     
-    <h4 class="name" id="sum"><span class="type-signature"></span>sum<span class="signature">(x, y)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id="setupCalendar"><span class="type-signature"></span>setupCalendar<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -554,7 +609,7 @@ Show username, update text
 
 
 <div class="description">
-    takes the sum of 2 numbers
+    dynamically generates calendar for current month
 </div>
 
 
@@ -563,78 +618,6 @@ Show username, update text
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">arg1</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">arg2</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -670,7 +653,7 @@ Show username, update text
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="test.js.html">test.js</a>, <a href="test.js.html#line14">line 14</a>
+        <a href="MonthlyOverview_script.js.html">MonthlyOverview/script.js</a>, <a href="MonthlyOverview_script.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -695,28 +678,6 @@ Show username, update text
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    sum of x and y
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Number</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -826,13 +787,13 @@ Show username, update text
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#demo">demo</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#helloWorld">helloWorld</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#toggleView">toggleView</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#toggleView">toggleView</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Thu May 20 2021 23:04:42 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun May 23 2021 20:05:34 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
