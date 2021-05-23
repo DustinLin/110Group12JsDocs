@@ -26,12 +26,28 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>//store current page state
+            <pre class="prettyprint source linenums"><code>//import database CRUDs
+import { mockGETPasswordHash } from "../backend/mockCRUD.js";
+import { mockPUTUser } from "../backend/mockCRUD.js";
+
+//store current page state
 var loginState = 'returning';
+
+//username box
+var username_field = document.getElementById('username');
+
+//password box
+var password_field = document.getElementById('pin');
 
 //make the login button redirect to Index
 var login_button = document.getElementById('login-button');
-login_button.addEventListener('click', goHome);
+login_button.addEventListener('click', () => {
+    if (loginState == 'returning') {
+        handleLogin(password_field.value);
+    } else if (loginState == 'new') {
+        handleSignup(username_field.value, password_field.value);
+    }
+});
 
 //make the toggle button change the page state
 var switch_button = document.getElementById('switch-screen');
@@ -51,6 +67,38 @@ function toggleView() {
 }
 
 /**
+ * Handle a Sign-Up request from a new user
+ * @param {*} new_username Display name of new user
+ * @param {*} new_password PIN of new user
+ */
+function handleSignup(new_username, new_password) {
+    let userObject = {
+        username: new_username,
+        password: new_password,
+        theme: 1,
+    }
+    mockPUTUser(userObject);
+    //make them log in
+    toggleView();
+    alert('Account created! Please log in');
+}
+
+/**
+ * Handles Login request. Checks if password hash is correct, and if so, goes to index
+ * (Password is "dinosaurs12")
+ * @param {*} password : PIN to be verified
+ */
+function handleLogin(password) {
+    let hash = mockHash(password);
+    let response = mockCheckHash(hash);
+    if (response == true) {
+        goHome();
+    } else {
+        alert('Incorrect password!');
+    }
+}
+
+/**
  * Redirect the browser to the Index page with a href
  */
 function goHome() {
@@ -62,7 +110,7 @@ function goHome() {
  * Hide username, update text.
  */
 function setNewUser() {
-    document.getElementById('username').style.display = 'none';
+    document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Create your login!';
     switch_button.innerText = 'Returning user?';
     login_button.innerText = 'Sign-Up';
@@ -73,12 +121,37 @@ function setNewUser() {
  * Show username, update text
  */
 function setReturningUser() {
-    document.getElementById('username').style.display = 'flex';
+    document.getElementById('username').style.display = 'none';
     document.getElementById('title').innerText = 'Welcome back!';
     switch_button.innerText = 'New user?';
     login_button.innerText = 'Sign-In';
 }
-</code></pre>
+
+/**
+ * Mock function for pretending to hash things (implement later, I don't know cryptography)
+ * 
+ * @param {*} input Plaintext password to be hashed
+ * @returns an encrypted hash representation of the password
+ */
+function mockHash(input) {
+    console.log(input);
+    let retval = 0;
+    for (let i = 0; i &lt; input.length; i++) {
+        retval += input.charCodeAt(i);
+    }
+    console.log(retval);
+    return retval;
+}
+
+/**
+ * Mock function for verifying a password hash (uses database GET)
+ *
+ * @param {*} hash : "encrypted" password to check
+ * @returns true if hash matches, false otherwise
+ */
+function mockCheckHash( hash) {
+    return hash == mockGETPasswordHash();
+} </code></pre>
         </article>
     </section>
 
@@ -88,13 +161,13 @@ function setReturningUser() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#toggleView">toggleView</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createDay">createDay</a></li><li><a href="global.html#createMonthlyGoals">createMonthlyGoals</a></li><li><a href="global.html#createSettings">createSettings</a></li><li><a href="global.html#createYearlyGoals">createYearlyGoals</a></li><li><a href="global.html#DB_NAME">DB_NAME</a></li><li><a href="global.html#deleteDay">deleteDay</a></li><li><a href="global.html#deleteMockData">deleteMockData</a></li><li><a href="global.html#deleteMonthlyGoals">deleteMonthlyGoals</a></li><li><a href="global.html#deleteSettings">deleteSettings</a></li><li><a href="global.html#deleteYearlyGoals">deleteYearlyGoals</a></li><li><a href="global.html#editMockData">editMockData</a></li><li><a href="global.html#getDay">getDay</a></li><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#getMockData">getMockData</a></li><li><a href="global.html#getMonthlyGoals">getMonthlyGoals</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getYearlyGoals">getYearlyGoals</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleSignup">handleSignup</a></li><li><a href="global.html#mockCheckHash">mockCheckHash</a></li><li><a href="global.html#mockHash">mockHash</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#setUpMockData">setUpMockData</a></li><li><a href="global.html#toggleView">toggleView</a></li><li><a href="global.html#updateDay">updateDay</a></li><li><a href="global.html#updateMonthlyGoals">updateMonthlyGoals</a></li><li><a href="global.html#updateSettings">updateSettings</a></li><li><a href="global.html#updateYearsGoals">updateYearsGoals</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun May 23 2021 20:05:34 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun May 23 2021 23:50:10 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
