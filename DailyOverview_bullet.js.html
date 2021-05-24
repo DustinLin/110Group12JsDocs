@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: DailyOverview/bullet.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: DailyOverview/bullet.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// &lt;bullet-entry> custom web component
+class BulletEntry extends HTMLElement {
+    constructor() {
+        super();
+
+        const template = document.createElement('template');
+        /**
+         * TODO:
+         * - add some sort of "mark as done"
+         * - add a display area for dates?
+         * - add max depth for child bullet
+         */
+
+        template.innerHTML = `
+            &lt;style>
+                .bullet-content{
+                    flex-basis: 5;
+                }
+                #container{
+                    /* flex container for the image */
+                    display:flex;
+                    flex-direction: row;
+                    align-items: center;
+                    display: block;
+                    /* what should this width be?, inherit from the todo list? */
+                }
+                #egg{
+                    width: 2vw;
+                }
+                .bullet{
+                    width: inhert; /* I don't think this works */
+                    word-break: break-all;
+                    max-width: 100%;
+                }
+                .child{
+                    padding-left: 2vw;
+                }
+                .bullet-container{
+                    display: inline-block; !important
+                }
+                ul {
+                    // list-style-image: url('../Images/DinoEgg.svg');
+                }
+                li > span {
+                    position: relative;
+                    left: -5px;
+                }
+                ul{
+                    padding: 10px 18px;
+                    margin: 0;
+                }
+
+            &lt;/style>
+            &lt;article class="bullet">
+                &lt;div id="container">
+                        &lt;ul>
+                        &lt;li>&lt;span class="bullet-content">Setting text&lt;/span>&lt;/li>
+                        &lt;/ul>
+                    &lt;button id="edit">Edit&lt;/button>
+                    &lt;button id="delete">Delete&lt;/button>
+                    &lt;button id="add">Add&lt;/button>
+                    &lt;div class="child">&lt;/div>
+                &lt;/div>
+            &lt;/article>
+            `;
+
+        this.attachShadow({ mode: 'open' });
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
+            let editedEntry = prompt(
+                'Edit Bullet',
+                this.shadowRoot.querySelector('.bullet-content').innerText
+            );
+            if (editedEntry != null &amp;&amp; editedEntry != '') {
+                this.shadowRoot.querySelector(
+                    '.bullet-content'
+                ).innerText = editedEntry;
+            }
+        });
+        this.shadowRoot
+            .querySelector('#delete')
+            .addEventListener('click', () => {
+                this.parentNode.removeChild(this);
+            });
+        this.shadowRoot.querySelector('#add').addEventListener('click', () => {
+            let newEntry = prompt('Add Bullet', '');
+            let newChild = document.createElement('bullet-entry');
+            newChild.shadowRoot.querySelector(
+                '.bullet-content'
+            ).innerText = newEntry;
+            this.shadowRoot.querySelector('.child').appendChild(newChild);
+        });
+    }
+
+    /**
+     * when getting the entry, return just the text for now
+     */
+    get entry() {
+        let entryObj = {
+            content: this.shadowRoot.querySelector('.bullet-content').innerText,
+        };
+        return entryObj;
+    }
+
+    set entry(entry) {
+        // set the text of the entry
+        this.shadowRoot.querySelector('.bullet-content').innerText = entry.text;
+
+        // see if it's marked as done
+        if (entry.done === true) {
+            this.shadowRoot.querySelector(
+                '.bullet-content'
+            ).style.textDecoration = 'line-through';
+        }
+    }
+
+    set child(child) {
+        // set nested bullets of entries
+        console.log(child);
+        this.shadowRoot.querySelector('.child').appendChild(child);
+    }
+}
+
+customElements.define('bullet-entry', BulletEntry);
+
+/**
+ * JSON Format:
+ * {
+ *    done: true/false,
+ *    text: " ",
+ *    indent: number (how many "tabs" or how nested is it")
+ *    type: number (is it a star? circle?),
+ *    time: (date object), for reminders only, could be null or somth
+ * }
+ */
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createDay">createDay</a></li><li><a href="global.html#createMonthlyGoals">createMonthlyGoals</a></li><li><a href="global.html#createSettings">createSettings</a></li><li><a href="global.html#createYearlyGoals">createYearlyGoals</a></li><li><a href="global.html#DB_NAME">DB_NAME</a></li><li><a href="global.html#deleteDay">deleteDay</a></li><li><a href="global.html#deleteMockData">deleteMockData</a></li><li><a href="global.html#deleteMonthlyGoals">deleteMonthlyGoals</a></li><li><a href="global.html#deleteSettings">deleteSettings</a></li><li><a href="global.html#deleteYearlyGoals">deleteYearlyGoals</a></li><li><a href="global.html#editMockData">editMockData</a></li><li><a href="global.html#getDay">getDay</a></li><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#getMockData">getMockData</a></li><li><a href="global.html#getMonthlyGoals">getMonthlyGoals</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getYearlyGoals">getYearlyGoals</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleSignup">handleSignup</a></li><li><a href="global.html#mockHash">mockHash</a></li><li><a href="global.html#renderBullets">renderBullets</a></li><li><a href="global.html#renderChild">renderChild</a></li><li><a href="global.html#renderGoals">renderGoals</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#setUpMockData">setUpMockData</a></li><li><a href="global.html#toggleView">toggleView</a></li><li><a href="global.html#updateDay">updateDay</a></li><li><a href="global.html#updateMonthlyGoals">updateMonthlyGoals</a></li><li><a href="global.html#updateSettings">updateSettings</a></li><li><a href="global.html#updateYearsGoals">updateYearsGoals</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon May 24 2021 00:46:16 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

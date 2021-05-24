@@ -26,32 +26,31 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>//import database CRUDs
-import { mockGETPasswordHash } from "../backend/mockCRUD.js";
-import { mockPUTUser } from "../backend/mockCRUD.js";
+            <pre class="prettyprint source linenums"><code>//setup hasher
+//var sha1 = require('sha1');
 
 //store current page state
 var loginState = 'returning';
 
 //username box
-var username_field = document.getElementById('username');
+var usernameField = document.getElementById('username');
 
 //password box
-var password_field = document.getElementById('pin');
+var passwordField = document.getElementById('pin');
 
 //make the login button redirect to Index
-var login_button = document.getElementById('login-button');
-login_button.addEventListener('click', () => {
+var loginButton = document.getElementById('login-button');
+loginButton.addEventListener('click', () => {
     if (loginState == 'returning') {
-        handleLogin(password_field.value);
+        handleLogin(passwordField.value);
     } else if (loginState == 'new') {
-        handleSignup(username_field.value, password_field.value);
+        handleSignup(usernameField.value, passwordField.value);
     }
 });
 
 //make the toggle button change the page state
-var switch_button = document.getElementById('switch-screen');
-switch_button.addEventListener('click', toggleView);
+var switchButton = document.getElementById('switch-screen');
+switchButton.addEventListener('click', toggleView);
 
 /**
  * Handle toggling the state of the page, calls the setNewUser() and setReturningUser() helper functions
@@ -68,16 +67,20 @@ function toggleView() {
 
 /**
  * Handle a Sign-Up request from a new user
- * @param {*} new_username Display name of new user
- * @param {*} new_password PIN of new user
+ *
+ * @param {*} newUsername Display name of new user
+ * @param {*} newPassword PIN of new user
  */
-function handleSignup(new_username, new_password) {
+function handleSignup(newUsername, newPassword) {
     let userObject = {
-        username: new_username,
-        password: new_password,
+        username: newUsername,
+        password: mockHash(newPassword),
         theme: 1,
-    }
-    mockPUTUser(userObject);
+    };
+    //update settings
+    // eslint-disable-next-line no-undef
+    updateSettings(userObject);
+    console.log('frontend: updating settings...');
     //make them log in
     toggleView();
     alert('Account created! Please log in');
@@ -86,16 +89,29 @@ function handleSignup(new_username, new_password) {
 /**
  * Handles Login request. Checks if password hash is correct, and if so, goes to index
  * (Password is "dinosaurs12")
+ * Begins to handle the Login request. Checks sends the password hash to be verified.
+ *
  * @param {*} password : PIN to be verified
  */
 function handleLogin(password) {
     let hash = mockHash(password);
-    let response = mockCheckHash(hash);
-    if (response == true) {
-        goHome();
-    } else {
-        alert('Incorrect password!');
-    }
+    console.log('Getting settings...');
+    // eslint-disable-next-line no-undef
+    let getSettingsRequest = getSettings();
+    getSettingsRequest.onsuccess = (e) => {
+        console.log(e.target.result);
+        let correctPassword = e.target.result.password;
+        console.log(
+            'Input: ' + hash + ' | Correct password: ' + correctPassword
+        );
+        let retval = hash == correctPassword;
+        console.log('Correct? ' + retval);
+        if (retval == true) {
+            goHome();
+        } else {
+            alert('Incorrect password!');
+        }
+    };
 }
 
 /**
@@ -112,8 +128,8 @@ function goHome() {
 function setNewUser() {
     document.getElementById('username').style.display = 'flex';
     document.getElementById('title').innerText = 'Create your login!';
-    switch_button.innerText = 'Returning user?';
-    login_button.innerText = 'Sign-Up';
+    switchButton.innerText = 'Returning user?';
+    loginButton.innerText = 'Sign-Up';
 }
 
 /**
@@ -123,35 +139,26 @@ function setNewUser() {
 function setReturningUser() {
     document.getElementById('username').style.display = 'none';
     document.getElementById('title').innerText = 'Welcome back!';
-    switch_button.innerText = 'New user?';
-    login_button.innerText = 'Sign-In';
+    switchButton.innerText = 'New user?';
+    loginButton.innerText = 'Sign-In';
 }
 
 /**
- * Mock function for pretending to hash things (implement later, I don't know cryptography)
- * 
+ * Mock function for pretending to hash things
+ *
  * @param {*} input Plaintext password to be hashed
  * @returns an encrypted hash representation of the password
  */
 function mockHash(input) {
-    console.log(input);
+    //console.log(input);
     let retval = 0;
     for (let i = 0; i &lt; input.length; i++) {
         retval += input.charCodeAt(i);
     }
-    console.log(retval);
+    //console.log(retval);
     return retval;
 }
-
-/**
- * Mock function for verifying a password hash (uses database GET)
- *
- * @param {*} hash : "encrypted" password to check
- * @returns true if hash matches, false otherwise
- */
-function mockCheckHash( hash) {
-    return hash == mockGETPasswordHash();
-} </code></pre>
+</code></pre>
         </article>
     </section>
 
@@ -161,13 +168,13 @@ function mockCheckHash( hash) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createDay">createDay</a></li><li><a href="global.html#createMonthlyGoals">createMonthlyGoals</a></li><li><a href="global.html#createSettings">createSettings</a></li><li><a href="global.html#createYearlyGoals">createYearlyGoals</a></li><li><a href="global.html#DB_NAME">DB_NAME</a></li><li><a href="global.html#deleteDay">deleteDay</a></li><li><a href="global.html#deleteMockData">deleteMockData</a></li><li><a href="global.html#deleteMonthlyGoals">deleteMonthlyGoals</a></li><li><a href="global.html#deleteSettings">deleteSettings</a></li><li><a href="global.html#deleteYearlyGoals">deleteYearlyGoals</a></li><li><a href="global.html#editMockData">editMockData</a></li><li><a href="global.html#getDay">getDay</a></li><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#getMockData">getMockData</a></li><li><a href="global.html#getMonthlyGoals">getMonthlyGoals</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getYearlyGoals">getYearlyGoals</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleSignup">handleSignup</a></li><li><a href="global.html#mockCheckHash">mockCheckHash</a></li><li><a href="global.html#mockHash">mockHash</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#setUpMockData">setUpMockData</a></li><li><a href="global.html#toggleView">toggleView</a></li><li><a href="global.html#updateDay">updateDay</a></li><li><a href="global.html#updateMonthlyGoals">updateMonthlyGoals</a></li><li><a href="global.html#updateSettings">updateSettings</a></li><li><a href="global.html#updateYearsGoals">updateYearsGoals</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createDay">createDay</a></li><li><a href="global.html#createMonthlyGoals">createMonthlyGoals</a></li><li><a href="global.html#createSettings">createSettings</a></li><li><a href="global.html#createYearlyGoals">createYearlyGoals</a></li><li><a href="global.html#DB_NAME">DB_NAME</a></li><li><a href="global.html#deleteDay">deleteDay</a></li><li><a href="global.html#deleteMockData">deleteMockData</a></li><li><a href="global.html#deleteMonthlyGoals">deleteMonthlyGoals</a></li><li><a href="global.html#deleteSettings">deleteSettings</a></li><li><a href="global.html#deleteYearlyGoals">deleteYearlyGoals</a></li><li><a href="global.html#editMockData">editMockData</a></li><li><a href="global.html#getDay">getDay</a></li><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#getMockData">getMockData</a></li><li><a href="global.html#getMonthlyGoals">getMonthlyGoals</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getYearlyGoals">getYearlyGoals</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleSignup">handleSignup</a></li><li><a href="global.html#mockHash">mockHash</a></li><li><a href="global.html#renderBullets">renderBullets</a></li><li><a href="global.html#renderChild">renderChild</a></li><li><a href="global.html#renderGoals">renderGoals</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#setUpMockData">setUpMockData</a></li><li><a href="global.html#toggleView">toggleView</a></li><li><a href="global.html#updateDay">updateDay</a></li><li><a href="global.html#updateMonthlyGoals">updateMonthlyGoals</a></li><li><a href="global.html#updateSettings">updateSettings</a></li><li><a href="global.html#updateYearsGoals">updateYearsGoals</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun May 23 2021 23:50:10 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon May 24 2021 00:46:16 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

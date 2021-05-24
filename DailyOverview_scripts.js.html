@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: DailyOverview/note.js</title>
+    <title>JSDoc: Source: DailyOverview/scripts.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: DailyOverview/note.js</h1>
+    <h1 class="page-title">Source: DailyOverview/scripts.js</h1>
 
     
 
@@ -26,57 +26,66 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// &lt;note-box> custom web component
-class noteBox extends HTMLElement {
-    constructor() {
-        super();
+            <pre class="prettyprint source linenums"><code>window.onload = () => {
+    // eslint-disable-next-line no-undef
+    let req = getDay('05/20/2021');
+    req.onsuccess = function (e) {
+        console.log('got day');
+        console.log(e.target.result);
+        let bullets = e.target.result.bullets;
+        renderBullets(bullets);
+    };
+};
 
-        const template = document.createElement('template');
+// document.getElementById('button').addEventListener('click', () => {
+//     //on click, render reach element and append to the todo section, used to test rendering of bullets
+//     renderBullets(mockBullets);
+// });
 
-        template.innerHTML = `
-            &lt;style>
-                * {
-                    font-size: 2vh;
-                    color: black;
-                }
-                .noteContent{
-                    overflow: auto;
-                    resize: none;
-                    width: 30vw;
-                    height: 70vh;
-                    border-style: none; 
-                }
-                .note{
-                    //word-break: break-all;
-                }
-            &lt;/style>
-            &lt;div id="note">
-                &lt;textarea class="noteContent">insert text&lt;/textarea>
-            &lt;/div>
+document.querySelector('.entry-form').addEventListener('submit', (submit) => {
+    submit.preventDefault();
+    let bText = document.querySelector('.entry-form-text').value;
+    let bullet = { text: bText, symb: '•' };
+    document.querySelector('.entry-form-text').value = '';
+    renderBullets([bullet]);
+});
 
-            `;
+// TODO : function createBullet(text, indentNum, )
 
-        this.attachShadow({ mode: 'open' });
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
-
-    /**
-     * when getting the entry, return just the text for now
-     */
-    get entry() {
-        let entryObj = {
-            content: this.shadowRoot.querySelector('.noteContent').innerText,
-        };
-        return entryObj;
-    }
-
-    set entry(entry) {
-        // set the text of the entry
-        this.shadowRoot.querySelector('.noteContent').innerText = entry.content;
-    }
+/**
+ * Function that renders a list of bullets into the todo area
+ * @param {Object} a list of bullet objects
+ */
+function renderBullets(bullets) {
+    bullets.forEach((bullet) => {
+        let newPost = document.createElement('bullet-entry');
+        newPost.entry = bullet;
+        if (bullet.childList) {
+            bullet.childList.forEach((child) => {
+                let newChild = renderChild(child);
+                newPost.child = newChild;
+            });
+        }
+        document.querySelector('#todo').appendChild(newPost);
+    });
 }
 
-customElements.define('note-box', noteBox);
+/**
+ * Function that recursively renders the nested bullets of a given bullet
+ * @param {Object} a bullet object
+ * @return {Object} new child created
+ */
+function renderChild(bullet) {
+    let newChild = document.createElement('bullet-entry');
+    newChild.entry = bullet;
+    if (bullet.childList) {
+        bullet.childList.forEach((child) => {
+            let newNewChild = renderChild(child);
+            newChild.child = newNewChild;
+        });
+    }
+    return newChild;
+}
 </code></pre>
         </article>
     </section>

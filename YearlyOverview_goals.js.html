@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: DailyOverview/note.js</title>
+    <title>JSDoc: Source: YearlyOverview/goals.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: DailyOverview/note.js</h1>
+    <h1 class="page-title">Source: YearlyOverview/goals.js</h1>
 
     
 
@@ -26,38 +26,82 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// &lt;note-box> custom web component
-class noteBox extends HTMLElement {
+            <pre class="prettyprint source linenums"><code>// &lt;goals-entry> custom web component
+class GoalsEntry extends HTMLElement {
     constructor() {
         super();
-
         const template = document.createElement('template');
 
         template.innerHTML = `
             &lt;style>
-                * {
-                    font-size: 2vh;
-                    color: black;
+                .bullet-content{
+                    flex-basis: 5;
                 }
-                .noteContent{
-                    overflow: auto;
-                    resize: none;
-                    width: 30vw;
-                    height: 70vh;
-                    border-style: none; 
+                #container{
+                    /* flex container for the image */
+                    display:flex;
+                    flex-direction: row;
+                    align-items: center;
+                    display: block;
+                    /* what should this width be?, inherit from the todo list? */
                 }
-                .note{
-                    //word-break: break-all;
+                #egg{
+                    width: 2vw;
                 }
-            &lt;/style>
-            &lt;div id="note">
-                &lt;textarea class="noteContent">insert text&lt;/textarea>
-            &lt;/div>
+                .bullet{
+                    width: inhert; /* I don't think this works */
+                    word-break: break-all;
+                    max-width: 100%;
+                }
+                .child{
+                    padding-left: 2vw;
+                }
+                .bullet-container{
+                    display: inline-block; !important
+                }
+                ul {
+                    // list-style-image: url('../Images/DinoEgg.svg');
+                }
+                li > span {
+                    position: relative;
+                    left: -5px;
+                }
+                ul{
+                    padding: 10px 18px;
+                    margin: 0;
+                }
 
+            &lt;/style>
+            &lt;article class="bullet">
+                &lt;div id="container">
+                        &lt;ul>
+                        &lt;li>&lt;span class="bullet-content">Setting text&lt;/span>&lt;/li>
+                        &lt;/ul>
+                    &lt;button id="edit">Edit&lt;/button>
+                    &lt;button id="delete">Delete&lt;/button>
+                    &lt;div class="child">&lt;/div>
+                &lt;/div>
+            &lt;/article>
             `;
 
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
+            let editedEntry = prompt(
+                'Edit Bullet',
+                this.shadowRoot.querySelector('.bullet-content').innerText
+            );
+            if (editedEntry != null &amp;&amp; editedEntry != '') {
+                this.shadowRoot.querySelector(
+                    '.bullet-content'
+                ).innerText = editedEntry;
+            }
+        });
+        this.shadowRoot
+            .querySelector('#delete')
+            .addEventListener('click', () => {
+                this.parentNode.removeChild(this);
+            });
     }
 
     /**
@@ -65,18 +109,31 @@ class noteBox extends HTMLElement {
      */
     get entry() {
         let entryObj = {
-            content: this.shadowRoot.querySelector('.noteContent').innerText,
+            content: this.shadowRoot.querySelector('.bullet-content').innerText,
         };
         return entryObj;
     }
 
     set entry(entry) {
         // set the text of the entry
-        this.shadowRoot.querySelector('.noteContent').innerText = entry.content;
+        this.shadowRoot.querySelector('.bullet-content').innerText = entry.text;
+
+        // see if it's marked as done
+        if (entry.done === true) {
+            this.shadowRoot.querySelector(
+                '.bullet-content'
+            ).style.textDecoration = 'line-through';
+        }
+    }
+
+    set child(child) {
+        // set nested bullets of entries
+        console.log(child);
+        this.shadowRoot.querySelector('.child').appendChild(child);
     }
 }
 
-customElements.define('note-box', noteBox);
+customElements.define('goals-entry', GoalsEntry);
 </code></pre>
         </article>
     </section>

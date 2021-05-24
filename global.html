@@ -2741,7 +2741,7 @@ NOTE: Since there is only 1 user, there is only 1 setting object
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line76">line 76</a>
+        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -2787,6 +2787,7 @@ NOTE: Since there is only 1 user, there is only 1 setting object
 <div class="description">
     Handles Login request. Checks if password hash is correct, and if so, goes to index
 (Password is "dinosaurs12")
+Begins to handle the Login request. Checks sends the password hash to be verified.
 </div>
 
 
@@ -2879,7 +2880,7 @@ NOTE: Since there is only 1 user, there is only 1 setting object
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line63">line 63</a>
+        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line68">line 68</a>
     </li></ul></dd>
     
 
@@ -2915,7 +2916,7 @@ NOTE: Since there is only 1 user, there is only 1 setting object
     
 
     
-    <h4 class="name" id="handleSignup"><span class="type-signature"></span>handleSignup<span class="signature">(new_username, new_password)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="handleSignup"><span class="type-signature"></span>handleSignup<span class="signature">(newUsername, newPassword)</span><span class="type-signature"></span></h4>
     
 
     
@@ -2959,7 +2960,7 @@ NOTE: Since there is only 1 user, there is only 1 setting object
 
         <tr>
             
-                <td class="name"><code>new_username</code></td>
+                <td class="name"><code>newUsername</code></td>
             
 
             <td class="type">
@@ -2982,7 +2983,7 @@ NOTE: Since there is only 1 user, there is only 1 setting object
 
         <tr>
             
-                <td class="name"><code>new_password</code></td>
+                <td class="name"><code>newPassword</code></td>
             
 
             <td class="type">
@@ -3075,153 +3076,6 @@ NOTE: Since there is only 1 user, there is only 1 setting object
     
 
     
-    <h4 class="name" id="mockCheckHash"><span class="type-signature"></span>mockCheckHash<span class="signature">(hash)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Mock function for verifying a password hash (uses database GET)
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>hash</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">: "encrypted" password to check</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line124">line 124</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    true if hash matches, false otherwise
-</div>
-
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id="mockHash"><span class="type-signature"></span>mockHash<span class="signature">(input)</span><span class="type-signature"></span></h4>
     
 
@@ -3230,7 +3084,7 @@ NOTE: Since there is only 1 user, there is only 1 setting object
 
 
 <div class="description">
-    Mock function for pretending to hash things (implement later, I don't know cryptography)
+    Mock function for pretending to hash things
 </div>
 
 
@@ -3323,7 +3177,7 @@ NOTE: Since there is only 1 user, there is only 1 setting object
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line108">line 108</a>
+        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line124">line 124</a>
     </li></ul></dd>
     
 
@@ -3358,6 +3212,576 @@ NOTE: Since there is only 1 user, there is only 1 setting object
 
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderBullets"><span class="type-signature"></span>renderBullets<span class="signature">(a)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function that renders a list of bullets into the todo area
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">list of bullet objects</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DailyOverview_scripts.js.html">DailyOverview/scripts.js</a>, <a href="DailyOverview_scripts.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderChild"><span class="type-signature"></span>renderChild<span class="signature">(a)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function that recursively renders the nested bullets of a given bullet
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">bullet object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DailyOverview_scripts.js.html">DailyOverview/scripts.js</a>, <a href="DailyOverview_scripts.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    new child created
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderGoals"><span class="type-signature"></span>renderGoals<span class="signature">(a)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function that renders a list of goals into the todo area
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">list of goal objects</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="MonthlyOverview_script.js.html">MonthlyOverview/script.js</a>, <a href="MonthlyOverview_script.js.html#line32">line 32</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderGoals"><span class="type-signature"></span>renderGoals<span class="signature">(a)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function that renders a list of goals into the todo area
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">list of goal objects</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="YearlyOverview_script.js.html">YearlyOverview/script.js</a>, <a href="YearlyOverview_script.js.html#line32">line 32</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3422,7 +3846,7 @@ Hide username, update text.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line84">line 84</a>
+        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line100">line 100</a>
     </li></ul></dd>
     
 
@@ -3511,7 +3935,7 @@ Show username, update text
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line95">line 95</a>
+        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -3599,7 +4023,7 @@ Show username, update text
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="MonthlyOverview_script.js.html">MonthlyOverview/script.js</a>, <a href="MonthlyOverview_script.js.html#line28">line 28</a>
+        <a href="MonthlyOverview_script.js.html">MonthlyOverview/script.js</a>, <a href="MonthlyOverview_script.js.html#line66">line 66</a>
     </li></ul></dd>
     
 
@@ -3775,7 +4199,7 @@ Show username, update text
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line31">line 31</a>
+        <a href="Login_scripts.js.html">Login/scripts.js</a>, <a href="Login_scripts.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -4717,13 +5141,13 @@ the year property much match one already existing in the database
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createDay">createDay</a></li><li><a href="global.html#createMonthlyGoals">createMonthlyGoals</a></li><li><a href="global.html#createSettings">createSettings</a></li><li><a href="global.html#createYearlyGoals">createYearlyGoals</a></li><li><a href="global.html#DB_NAME">DB_NAME</a></li><li><a href="global.html#deleteDay">deleteDay</a></li><li><a href="global.html#deleteMockData">deleteMockData</a></li><li><a href="global.html#deleteMonthlyGoals">deleteMonthlyGoals</a></li><li><a href="global.html#deleteSettings">deleteSettings</a></li><li><a href="global.html#deleteYearlyGoals">deleteYearlyGoals</a></li><li><a href="global.html#editMockData">editMockData</a></li><li><a href="global.html#getDay">getDay</a></li><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#getMockData">getMockData</a></li><li><a href="global.html#getMonthlyGoals">getMonthlyGoals</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getYearlyGoals">getYearlyGoals</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleSignup">handleSignup</a></li><li><a href="global.html#mockCheckHash">mockCheckHash</a></li><li><a href="global.html#mockHash">mockHash</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#setUpMockData">setUpMockData</a></li><li><a href="global.html#toggleView">toggleView</a></li><li><a href="global.html#updateDay">updateDay</a></li><li><a href="global.html#updateMonthlyGoals">updateMonthlyGoals</a></li><li><a href="global.html#updateSettings">updateSettings</a></li><li><a href="global.html#updateYearsGoals">updateYearsGoals</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createDay">createDay</a></li><li><a href="global.html#createMonthlyGoals">createMonthlyGoals</a></li><li><a href="global.html#createSettings">createSettings</a></li><li><a href="global.html#createYearlyGoals">createYearlyGoals</a></li><li><a href="global.html#DB_NAME">DB_NAME</a></li><li><a href="global.html#deleteDay">deleteDay</a></li><li><a href="global.html#deleteMockData">deleteMockData</a></li><li><a href="global.html#deleteMonthlyGoals">deleteMonthlyGoals</a></li><li><a href="global.html#deleteSettings">deleteSettings</a></li><li><a href="global.html#deleteYearlyGoals">deleteYearlyGoals</a></li><li><a href="global.html#editMockData">editMockData</a></li><li><a href="global.html#getDay">getDay</a></li><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#getMockData">getMockData</a></li><li><a href="global.html#getMonthlyGoals">getMonthlyGoals</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getYearlyGoals">getYearlyGoals</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleSignup">handleSignup</a></li><li><a href="global.html#mockHash">mockHash</a></li><li><a href="global.html#renderBullets">renderBullets</a></li><li><a href="global.html#renderChild">renderChild</a></li><li><a href="global.html#renderGoals">renderGoals</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#setUpMockData">setUpMockData</a></li><li><a href="global.html#toggleView">toggleView</a></li><li><a href="global.html#updateDay">updateDay</a></li><li><a href="global.html#updateMonthlyGoals">updateMonthlyGoals</a></li><li><a href="global.html#updateSettings">updateSettings</a></li><li><a href="global.html#updateYearsGoals">updateYearsGoals</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun May 23 2021 23:50:10 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon May 24 2021 00:46:16 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
