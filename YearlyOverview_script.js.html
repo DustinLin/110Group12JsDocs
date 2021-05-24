@@ -26,7 +26,19 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// mock data of list of goals to render
+            <pre class="prettyprint source linenums"><code>//get the desired year
+let myLocation = window.location.href;
+let currentYear = myLocation.substring(
+    myLocation.length - 4,
+    myLocation.length
+);
+//default case
+if (currentYear == 'html') {
+    currentYear = 2021;
+}
+console.log(currentYear);
+
+// mock data of list of goals to render
 let mockGoals = [
     { text: 'O, Wonder! ', symb: '•', done: true },
     {
@@ -39,6 +51,8 @@ let mockGoals = [
         symb: '•',
     },
 ];
+
+//query the database
 
 document.getElementById('button').addEventListener('click', () => {
     //on click, render each element and append to the goals section
@@ -64,6 +78,32 @@ function renderGoals(goals) {
         document.querySelector('#goals').appendChild(newPost);
     });
 }
+
+//link the months
+document.getElementById('January').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#01/' + currentYear;
+document.getElementById('February').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#02/' + currentYear;
+document.getElementById('March').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#03/' + currentYear;
+document.getElementById('April').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#04/' + currentYear;
+document.getElementById('May').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#05/' + currentYear;
+document.getElementById('June').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#06/' + currentYear;
+document.getElementById('July').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#07/' + currentYear;
+document.getElementById('August').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#08/' + currentYear;
+document.getElementById('September').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#09/' + currentYear;
+document.getElementById('October').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#10/' + currentYear;
+document.getElementById('November').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#11/' + currentYear;
+document.getElementById('December').children[0].href =
+    '/source/MonthlyOverview/MonthlyOverview.html' + '#12/' + currentYear;
 </code></pre>
         </article>
     </section>
@@ -74,13 +114,13 @@ function renderGoals(goals) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createDay">createDay</a></li><li><a href="global.html#createMonthlyGoals">createMonthlyGoals</a></li><li><a href="global.html#createSettings">createSettings</a></li><li><a href="global.html#createYearlyGoals">createYearlyGoals</a></li><li><a href="global.html#DB_NAME">DB_NAME</a></li><li><a href="global.html#deleteDay">deleteDay</a></li><li><a href="global.html#deleteMockData">deleteMockData</a></li><li><a href="global.html#deleteMonthlyGoals">deleteMonthlyGoals</a></li><li><a href="global.html#deleteSettings">deleteSettings</a></li><li><a href="global.html#deleteYearlyGoals">deleteYearlyGoals</a></li><li><a href="global.html#editMockData">editMockData</a></li><li><a href="global.html#getDay">getDay</a></li><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#getMockData">getMockData</a></li><li><a href="global.html#getMonthlyGoals">getMonthlyGoals</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getYearlyGoals">getYearlyGoals</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleSignup">handleSignup</a></li><li><a href="global.html#mockHash">mockHash</a></li><li><a href="global.html#renderBullets">renderBullets</a></li><li><a href="global.html#renderChild">renderChild</a></li><li><a href="global.html#renderGoals">renderGoals</a></li><li><a href="global.html#renderPhotos">renderPhotos</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#setUpMockData">setUpMockData</a></li><li><a href="global.html#toggleView">toggleView</a></li><li><a href="global.html#updateDay">updateDay</a></li><li><a href="global.html#updateMonthlyGoals">updateMonthlyGoals</a></li><li><a href="global.html#updateSettings">updateSettings</a></li><li><a href="global.html#updateYearsGoals">updateYearsGoals</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createDay">createDay</a></li><li><a href="global.html#createMonthlyGoals">createMonthlyGoals</a></li><li><a href="global.html#createSettings">createSettings</a></li><li><a href="global.html#createYearlyGoals">createYearlyGoals</a></li><li><a href="global.html#dayNumber">dayNumber</a></li><li><a href="global.html#DB_NAME">DB_NAME</a></li><li><a href="global.html#deleteDay">deleteDay</a></li><li><a href="global.html#deleteMockData">deleteMockData</a></li><li><a href="global.html#deleteMonthlyGoals">deleteMonthlyGoals</a></li><li><a href="global.html#deleteSettings">deleteSettings</a></li><li><a href="global.html#deleteYearlyGoals">deleteYearlyGoals</a></li><li><a href="global.html#editMockData">editMockData</a></li><li><a href="global.html#firstDow">firstDow</a></li><li><a href="global.html#getDay">getDay</a></li><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#getMockData">getMockData</a></li><li><a href="global.html#getMonthlyGoals">getMonthlyGoals</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getYearlyGoals">getYearlyGoals</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleSignup">handleSignup</a></li><li><a href="global.html#lastDow">lastDow</a></li><li><a href="global.html#mockHash">mockHash</a></li><li><a href="global.html#monthNumber">monthNumber</a></li><li><a href="global.html#renderBullets">renderBullets</a></li><li><a href="global.html#renderChild">renderChild</a></li><li><a href="global.html#renderGoals">renderGoals</a></li><li><a href="global.html#renderPhotos">renderPhotos</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#setUpMockData">setUpMockData</a></li><li><a href="global.html#toggleView">toggleView</a></li><li><a href="global.html#updateDay">updateDay</a></li><li><a href="global.html#updateMonthlyGoals">updateMonthlyGoals</a></li><li><a href="global.html#updateSettings">updateSettings</a></li><li><a href="global.html#updateYearsGoals">updateYearsGoals</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon May 24 2021 02:46:14 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon May 24 2021 16:55:44 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
