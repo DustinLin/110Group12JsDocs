@@ -26,7 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>var img = new Image(); // used to load image from &lt;input> and draw to canvas
+            <pre class="prettyprint source linenums"><code>window.img = new Image(); // used to load image from &lt;input> and draw to canvas
 var input = document.getElementById('image-input');
 const canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
@@ -55,8 +55,8 @@ document.getElementById('noteButton').addEventListener('click', () => {
 });
 
 input.addEventListener('change', (event) => {
-    img[relative] = new Image();
-    img[relative].src = URL.createObjectURL(event.target.files[0]); // User picks image location
+    window.img[relative] = new Image();
+    window.img[relative].src = URL.createObjectURL(event.target.files[0]); // User picks image location
 });
 // Add an image to the canvas
 add.addEventListener('click', () => {
@@ -71,11 +71,11 @@ save.addEventListener('click', () => {
     var imgDimension = getDimensions(
         canvas.width,
         canvas.height,
-        img[relative].width,
-        img[relative].height
+        window.img[relative].width,
+        window.img[relative].height
     );
     canv.drawImage(
-        img[relative],
+        window.img[relative],
         imgDimension['startX'],
         imgDimension['startY'],
         imgDimension['width'],
@@ -85,15 +85,15 @@ save.addEventListener('click', () => {
 left.addEventListener('click', () => {
     relative -= 1;
     canv.clearRect(0, 0, canvas.width, canvas.height);
-    if (img[relative]) {
+    if (window.img[relative]) {
         var imgDimension = getDimensions(
             canvas.width,
             canvas.height,
-            img[relative].width,
-            img[relative].height
+            window.img[relative].width,
+            window.img[relative].height
         );
         canv.drawImage(
-            img[relative],
+            window.img[relative],
             imgDimension['startX'],
             imgDimension['startY'],
             imgDimension['width'],
@@ -104,15 +104,15 @@ left.addEventListener('click', () => {
 right.addEventListener('click', () => {
     relative += 1;
     canv.clearRect(0, 0, canvas.width, canvas.height);
-    if (img[relative]) {
+    if (window.img[relative]) {
         var imgDimension = getDimensions(
             canvas.width,
             canvas.height,
-            img[relative].width,
-            img[relative].height
+            window.img[relative].width,
+            window.img[relative].height
         );
         canv.drawImage(
-            img[relative],
+            window.img[relative],
             imgDimension['startX'],
             imgDimension['startY'],
             imgDimension['width'],
@@ -170,13 +170,13 @@ function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createDay">createDay</a></li><li><a href="global.html#createMonthlyGoals">createMonthlyGoals</a></li><li><a href="global.html#createSettings">createSettings</a></li><li><a href="global.html#createYearlyGoals">createYearlyGoals</a></li><li><a href="global.html#DB_NAME">DB_NAME</a></li><li><a href="global.html#deleteDay">deleteDay</a></li><li><a href="global.html#deleteMockData">deleteMockData</a></li><li><a href="global.html#deleteMonthlyGoals">deleteMonthlyGoals</a></li><li><a href="global.html#deleteSettings">deleteSettings</a></li><li><a href="global.html#deleteYearlyGoals">deleteYearlyGoals</a></li><li><a href="global.html#editMockData">editMockData</a></li><li><a href="global.html#getDay">getDay</a></li><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#getMockData">getMockData</a></li><li><a href="global.html#getMonthlyGoals">getMonthlyGoals</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getYearlyGoals">getYearlyGoals</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleSignup">handleSignup</a></li><li><a href="global.html#mockHash">mockHash</a></li><li><a href="global.html#renderBullets">renderBullets</a></li><li><a href="global.html#renderChild">renderChild</a></li><li><a href="global.html#renderGoals">renderGoals</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#setUpMockData">setUpMockData</a></li><li><a href="global.html#toggleView">toggleView</a></li><li><a href="global.html#updateDay">updateDay</a></li><li><a href="global.html#updateMonthlyGoals">updateMonthlyGoals</a></li><li><a href="global.html#updateSettings">updateSettings</a></li><li><a href="global.html#updateYearsGoals">updateYearsGoals</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createDay">createDay</a></li><li><a href="global.html#createMonthlyGoals">createMonthlyGoals</a></li><li><a href="global.html#createSettings">createSettings</a></li><li><a href="global.html#createYearlyGoals">createYearlyGoals</a></li><li><a href="global.html#DB_NAME">DB_NAME</a></li><li><a href="global.html#deleteDay">deleteDay</a></li><li><a href="global.html#deleteMockData">deleteMockData</a></li><li><a href="global.html#deleteMonthlyGoals">deleteMonthlyGoals</a></li><li><a href="global.html#deleteSettings">deleteSettings</a></li><li><a href="global.html#deleteYearlyGoals">deleteYearlyGoals</a></li><li><a href="global.html#editMockData">editMockData</a></li><li><a href="global.html#getDay">getDay</a></li><li><a href="global.html#getDimensions">getDimensions</a></li><li><a href="global.html#getMockData">getMockData</a></li><li><a href="global.html#getMonthlyGoals">getMonthlyGoals</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getYearlyGoals">getYearlyGoals</a></li><li><a href="global.html#goHome">goHome</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleSignup">handleSignup</a></li><li><a href="global.html#mockHash">mockHash</a></li><li><a href="global.html#renderBullets">renderBullets</a></li><li><a href="global.html#renderChild">renderChild</a></li><li><a href="global.html#renderGoals">renderGoals</a></li><li><a href="global.html#renderPhotos">renderPhotos</a></li><li><a href="global.html#setNewUser">setNewUser</a></li><li><a href="global.html#setReturningUser">setReturningUser</a></li><li><a href="global.html#setupCalendar">setupCalendar</a></li><li><a href="global.html#setUpMockData">setUpMockData</a></li><li><a href="global.html#toggleView">toggleView</a></li><li><a href="global.html#updateDay">updateDay</a></li><li><a href="global.html#updateMonthlyGoals">updateMonthlyGoals</a></li><li><a href="global.html#updateSettings">updateSettings</a></li><li><a href="global.html#updateYearsGoals">updateYearsGoals</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon May 24 2021 00:46:16 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon May 24 2021 02:46:14 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
