@@ -509,7 +509,7 @@ survives between reloads
 
             
 
-            <td class="description last">an array of photo objects</td>
+            <td class="description last">an array of photo objects, encoded in Base64</td>
         </tr>
 
     
@@ -4289,7 +4289,7 @@ Begins to handle the Login request. Checks sends the password hash to be verifie
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="backend_backendInit.js.html">backend/backendInit.js</a>, <a href="backend_backendInit.js.html#line535">line 535</a>
+        <a href="backend_backendInit.js.html">backend/backendInit.js</a>, <a href="backend_backendInit.js.html#line537">line 537</a>
     </li></ul></dd>
     
 
@@ -4297,13 +4297,6 @@ Begins to handle the Login request. Checks sends the password hash to be verifie
 
     
 
-    
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>Write more documentation on the object's values</li>
-        </ul>
-    </dd>
     
 </dl>
 
@@ -4325,7 +4318,8 @@ Begins to handle the Login request. Checks sends the password hash to be verifie
 
         
 <div class="param-desc">
-    the new day object
+    dateObj - the new day object
+Look into createDay() to see what a date object consists of
 </div>
 
 
@@ -4455,7 +4449,7 @@ any transactions
     
 
     
-    <h4 class="name" id="initGoal"><span class="type-signature"></span>initGoal<span class="signature">(goalStr)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="initGoal"><span class="type-signature"></span>initGoal<span class="signature">(goalStr)</span><span class="type-signature"> &rarr; {Object|String|boolean}</span></h4>
     
 
     
@@ -4557,7 +4551,7 @@ new goals area always initalized as not done
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="backend_backendInit.js.html">backend/backendInit.js</a>, <a href="backend_backendInit.js.html#line546">line 546</a>
+        <a href="backend_backendInit.js.html">backend/backendInit.js</a>, <a href="backend_backendInit.js.html#line549">line 549</a>
     </li></ul></dd>
     
 
@@ -4565,13 +4559,6 @@ new goals area always initalized as not done
 
     
 
-    
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>Write more documentation on the object's values</li>
-        </ul>
-    </dd>
     
 </dl>
 
@@ -4590,10 +4577,10 @@ new goals area always initalized as not done
 
 
 <h5>Returns:</h5>
-
-        
+<ul>
+        <li>
 <div class="param-desc">
-    the new goal object
+    goal - the new goal object
 </div>
 
 
@@ -4609,8 +4596,48 @@ new goals area always initalized as not done
 
     </dd>
 </dl>
-
+</li>
     
+        <li>
+<div class="param-desc">
+    goal.text - the string of what the text is
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    goal.done - is the goal is done or not
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
 
 
 
@@ -4622,7 +4649,7 @@ new goals area always initalized as not done
     
 
     
-    <h4 class="name" id="initMonth"><span class="type-signature"></span>initMonth<span class="signature">(monthStr)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="initMonth"><span class="type-signature"></span>initMonth<span class="signature">(monthStr)</span><span class="type-signature"> &rarr; {Object|String|Object}</span></h4>
     
 
     
@@ -4723,7 +4750,7 @@ new goals area always initalized as not done
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="backend_backendInit.js.html">backend/backendInit.js</a>, <a href="backend_backendInit.js.html#line525">line 525</a>
+        <a href="backend_backendInit.js.html">backend/backendInit.js</a>, <a href="backend_backendInit.js.html#line527">line 527</a>
     </li></ul></dd>
     
 
@@ -4731,13 +4758,6 @@ new goals area always initalized as not done
 
     
 
-    
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>Write more documentation on the object's values</li>
-        </ul>
-    </dd>
     
 </dl>
 
@@ -4756,10 +4776,10 @@ new goals area always initalized as not done
 
 
 <h5>Returns:</h5>
-
-        
+<ul>
+        <li>
 <div class="param-desc">
-    the new monthly goal obj
+    monthObj - the new monthly goal obj
 </div>
 
 
@@ -4775,8 +4795,48 @@ new goals area always initalized as not done
 
     </dd>
 </dl>
-
+</li>
     
+        <li>
+<div class="param-desc">
+    monthObj.year - string of the month (which is of the form "xx/xxxx" eg: "02/2021")
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    monthObj.goals- an array (initally empty) of goal objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
 
 
 
@@ -4788,7 +4848,7 @@ new goals area always initalized as not done
     
 
     
-    <h4 class="name" id="initYear"><span class="type-signature"></span>initYear<span class="signature">(yearStr)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="initYear"><span class="type-signature"></span>initYear<span class="signature">(yearStr)</span><span class="type-signature"> &rarr; {Object|String|Object}</span></h4>
     
 
     
@@ -4889,7 +4949,7 @@ new goals area always initalized as not done
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="backend_backendInit.js.html">backend/backendInit.js</a>, <a href="backend_backendInit.js.html#line515">line 515</a>
+        <a href="backend_backendInit.js.html">backend/backendInit.js</a>, <a href="backend_backendInit.js.html#line516">line 516</a>
     </li></ul></dd>
     
 
@@ -4897,13 +4957,6 @@ new goals area always initalized as not done
 
     
 
-    
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>Write more documentation on the object's values</li>
-        </ul>
-    </dd>
     
 </dl>
 
@@ -4922,10 +4975,10 @@ new goals area always initalized as not done
 
 
 <h5>Returns:</h5>
-
-        
+<ul>
+        <li>
 <div class="param-desc">
-    the new year object
+    yearObj - the new year object
 </div>
 
 
@@ -4941,8 +4994,48 @@ new goals area always initalized as not done
 
     </dd>
 </dl>
-
+</li>
     
+        <li>
+<div class="param-desc">
+    yearObj.year - string of the year
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    yearObj.goals- an array (initally empty) of goal objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
 
 
 
@@ -6920,7 +7013,7 @@ Show username, update text
     
 
     
-    <h4 class="name" id="updateDay"><span class="type-signature"></span>updateDay<span class="signature">(Custom)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="updateDay"><span class="type-signature"></span>updateDay<span class="signature">(dayObj)</span><span class="type-signature"></span></h4>
     
 
     
@@ -6965,7 +7058,7 @@ the date property must match an entry in the database
 
         <tr>
             
-                <td class="name"><code>Custom</code></td>
+                <td class="name"><code>dayObj</code></td>
             
 
             <td class="type">
@@ -6981,14 +7074,33 @@ the date property must match an entry in the database
 
             
 
-            <td class="description last">day object</td>
-        </tr>
+            <td class="description last">Custom day object
+                <h6>Properties</h6>
+                
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>dayObj.date</code></td>
+                <td class="name"><code>date</code></td>
             
 
             <td class="type">
@@ -7011,7 +7123,7 @@ the date property must match an entry in the database
 
         <tr>
             
-                <td class="name"><code>dayObj.bullets</code></td>
+                <td class="name"><code>bullets</code></td>
             
 
             <td class="type">
@@ -7034,7 +7146,7 @@ the date property must match an entry in the database
 
         <tr>
             
-                <td class="name"><code>dayObj.photos</code></td>
+                <td class="name"><code>photos</code></td>
             
 
             <td class="type">
@@ -7057,7 +7169,7 @@ the date property must match an entry in the database
 
         <tr>
             
-                <td class="name"><code>dayObj.notes</code></td>
+                <td class="name"><code>notes</code></td>
             
 
             <td class="type">
@@ -7074,6 +7186,13 @@ the date property must match an entry in the database
             
 
             <td class="description last">a string representing the notes</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -7920,7 +8039,7 @@ the year property much match one already existing in the database
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat May 29 2021 18:49:57 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Tue Jun 01 2021 00:12:12 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
