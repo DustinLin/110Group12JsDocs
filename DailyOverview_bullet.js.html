@@ -91,6 +91,13 @@ class BulletEntry extends HTMLElement {
                 .dropdownContainer:hover .dropdown {
                     display: block;
                 }
+                #features {
+                    width: 100%;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 12px 16px;
+                }
 
             &lt;/style>
             &lt;article class="bullet">
@@ -105,6 +112,14 @@ class BulletEntry extends HTMLElement {
                                 &lt;p id="delete">Delete&lt;/p>
                                 &lt;p id="add">Add&lt;/p>
                                 &lt;p id="done">Mark Done&lt;/p>
+                                &lt;select id="features"> 
+                                    &lt;option id="normal" value="normal">Normal&lt;/option> 
+                                    &lt;option id="important" value="important">Important&lt;/option>
+                                    &lt;option id="workRelated" value="workRelated">School/Coursework&lt;/option>
+                                    &lt;option id="household" value="household">Household/Chores&lt;/option>
+                                    &lt;option id="personal" value="personal">Personal/Well-being&lt;/option>
+                                    &lt;option id="other" value="other">Other&lt;/option>
+                                &lt;/select>
                             &lt;/div>
                         &lt;/div>
                         &lt;div class="child">&lt;/div>
@@ -150,7 +165,7 @@ class BulletEntry extends HTMLElement {
             let newIndex = JSON.parse(this.getAttribute('index'));
             let childJson = {
                 text: newEntry,
-                symb: '•',
+                features: 'normal',
                 done: false,
                 childList: [],
                 time: null,
@@ -195,6 +210,20 @@ class BulletEntry extends HTMLElement {
             this.dispatchEvent(this.done);
         });
 
+        // mark bullet category
+        this.shadowRoot
+            .querySelector('#features')
+            .addEventListener('change', () => {
+                let newJson = JSON.parse(this.getAttribute('bulletJson'));
+                let selectElement = this.shadowRoot.querySelector('#features');
+                let output = selectElement.value;
+                console.log('debug shit');
+                console.log(newJson);
+                newJson.features = output;
+                this.setAttribute('bulletJson', JSON.stringify(newJson));
+                this.dispatchEvent(this.features);
+            });
+
         // new event to see when bullet child is added
         this.added = new CustomEvent('added', {
             bubbles: true,
@@ -215,6 +244,12 @@ class BulletEntry extends HTMLElement {
 
         // new event to mark event as done
         this.done = new CustomEvent('done', {
+            bubbles: true,
+            composed: true,
+        });
+
+        // new event to see what category it is
+        this.features = new CustomEvent('features', {
             bubbles: true,
             composed: true,
         });
@@ -239,6 +274,49 @@ class BulletEntry extends HTMLElement {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
+            console.log('testing');
+        }
+
+        console.log('features');
+        console.log(entry.features);
+        console.log(this.shadowRoot.getElementById(entry.features));
+        this.shadowRoot
+            .getElementById(entry.features)
+            .setAttribute('selected', 'true');
+
+        switch (entry.features) {
+            case 'normal':
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    'none';
+                break;
+            case 'important': // star icon
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
+                    "url('./images/Star.svg')";
+                break;
+            case 'workRelated': // pencil
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
+                    "url('./images/Pencil.svg')";
+                break;
+            case 'household': // house
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
+                    "url('./images/House.svg')";
+                break;
+            case 'personal': // heart
+                this.shadowRoot.querySelector('ul').style.listStyleImage =
+                    // required to use double quotes below due to inner single quotes
+                    // eslint-disable-next-line quotes
+                    "url('./images/Heart.svg')";
+                break;
+            case 'other': // square
+                this.shadowRoot.querySelector('ul').style.listStyleType =
+                    'square';
+                break;
         }
     }
 
@@ -273,7 +351,7 @@ customElements.define('bullet-entry', BulletEntry);
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Tue Jun 01 2021 00:12:12 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Tue Jun 01 2021 00:13:10 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
