@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Index/script.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,57 +17,107 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Index/script.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>CSE 110 Spring '21 Group 12</h1>
-<p><a href="admin/team.md">Team Page</a></p>
-<p>Our project will be a digital bullet journal</p>
-<h3>Documentation Site</h3>
-<p>our jsDocs are hosted <a href="https://dustinlin.github.io/110Group12JsDocs/index.html">here</a></p>
-<h3>How to set up eslint and prettier on VS-Code</h3>
-<ol>
-<li>run <code>npm install</code> in the root project directory (where the package.json is)</li>
-<li>make sure to install the eslint extension for vscode</li>
-</ol>
-<h3>Setting up auto-formating on save for js, html, and css files</h3>
-<p>TODO: For some reason there is no syntax highlighting for html and css files, but you are able to check the files directly from the command line using <code>npx prettier [filename]</code> and format them automatically using <code>npx prettier --write [filename]</code>.</p>
-<ol>
-<li>install the prettier extension for vscode</li>
-<li>in the vscode settings, under &quot;defualt formatter&quot; select prettier as your default formatter</li>
-<li>enable &quot;format on save&quot;</li>
-</ol>
-<h3>Notes on style and structure for reference</h3>
-<p>We agreed to all use <em>camelCase</em> for naming, and file names will be in capital letters (eg: <code>YearlyOverview</code>)
-In the <code>source</code> directory, we have folders for each page, and each folder will contain their own files. If we end up having global css properties, then perhaps we will have a stylesheet in <code>source/</code> that other pages can reference.  Use <code>let</code> instead of <code>var</code> for variables.</p>
-<h3>Tutorial on backend API</h3>
-<p>Located <a href="./mil-notes/tutorials/Cruc.md">here</a></p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>let collapsible_years_list = document.getElementsByClassName('coll_yr_button');
+
+window.addEventListener('load', () => {
+    //gets the session, if the user isn't logged in, sends them to login page
+    let session = window.sessionStorage;
+    console.log('here is storage session', session);
+    if (session.getItem('loggedIn') !== 'true') {
+        window.location.href = '../Login/Login.html';
+    }
+    // getting backend sample day
+    // eslint-disable-next-line no-undef
+    let dbPromise = initDB();
+    dbPromise.onsuccess = function (e) {
+        console.log('database connected');
+        // eslint-disable-next-line no-undef
+        setDB(e.target.result);
+        // eslint-disable-next-line no-undef
+        let req = getSettings();
+        req.onsuccess = function (e) {
+            let settingObj = e.target.result;
+            console.log('setting initial theme');
+            document.documentElement.style.setProperty(
+                '--bg-color',
+                settingObj.theme
+            );
+            setSelected(document.querySelector('#themes'), settingObj.theme);
+        };
+    };
+});
+
+/**
+ * Sets the theme dropdown index choice as selected based on input value
+ * @param {Object} select - the select object
+ * @param {string} val - the value of the option to select
+ * @returns void
+ */
+function setSelected(select, val) {
+    for (let i = 0; i &lt; select.options.length; i++) {
+        if (select.options[i].value == val) {
+            select.options[i].selected = true;
+            break;
+        }
+    }
+    return;
+}
+
+/**
+ * Shows or hides collapsible_child of button
+ * @returns void
+ */
+function collapsible_year_toggle() {
+    this.classList.toggle('active');
+    let target_year = this.id.substring(0, 4);
+    let target = document.getElementById(target_year + '_months');
+    if (target.style.display === 'flex') {
+        target.style.display = 'none';
+        this.innerText = '>';
+    } else {
+        target.style.display = 'flex';
+        this.innerText = 'v';
+    }
+}
+
+//alert("Collapsibles found: "+ collapsible_years_list.length);
+//alert("Sanity check: " + sanity_check.length);
+for (let i = 0; i &lt; collapsible_years_list.length; i++) {
+    collapsible_years_list[i].addEventListener(
+        'click',
+        collapsible_year_toggle
+    );
+}
+
+// changes global color theme
+document.querySelector('#themes').addEventListener('change', () => {
+    // eslint-disable-next-line no-undef
+    let req = getSettings();
+    req.onsuccess = function (e) {
+        console.log('got settings');
+        console.log(e.target.result);
+        let settingObj = e.target.result;
+        settingObj.theme = document.querySelector('#themes').value;
+        document.documentElement.style.setProperty(
+            '--bg-color',
+            settingObj.theme
+        );
+        // eslint-disable-next-line no-undef
+        updateSettings(settingObj);
+    };
+});
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
