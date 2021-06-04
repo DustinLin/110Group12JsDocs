@@ -32,13 +32,6 @@ class BulletEntry extends HTMLElement {
         super();
 
         const template = document.createElement('template');
-        /**
-         * TODO:
-         * - add some sort of "mark as done"
-         * - add a display area for dates?
-         * - add max depth for child bullet
-         * - adding bullet and hitting cancel still adds it
-         */
 
         template.innerHTML = `
             &lt;style>
@@ -74,18 +67,18 @@ class BulletEntry extends HTMLElement {
                 .dropdown {
                     display: none;
                     position: absolute;
-                    background-color: #f1f1f1;
-                    min-width: 9vh;
+                    background-color: #e4e4e4;
+                    min-width: 11vh;
                     z-index: 1;
                     transform: translateY(-0.1vh);
                 }
                 .dropdown p {
                     color: black;
                     font-size: 1.7vh;
-                    padding: 0.5vh 0 0.5vh 0.5vh;
+                    padding: 0.5vh 0.5vh 0.5vh 0.5vh;
                     display: block;
                     margin: 0;
-                    background-color: #ecc7c7;
+                    background-color: #e4e4e4;
                 }
                 .dropdown p:hover {
                     background-color: #cecece;
@@ -94,12 +87,33 @@ class BulletEntry extends HTMLElement {
                 .dropdownContainer:hover .dropdown {
                     display: block;
                 }
+                .dropdownButton {
+                    font-size: 1.5vh;
+                    width: 2vh;
+                    height: 2vh;
+                    transform: translateY(-0.1vh);
+                    padding: 0;
+                    background-color: #e4e4e4;
+                    border: none;
+                    border-radius: 0.5vh;
+                }
                 #features {
                     width: 100%;
                     background: transparent;
                     border: none;
                     cursor: pointer;
-                    padding: 12px 16px;
+                    padding: 0.5vh;
+                    background-color: #e4e4e4;
+                    font-family: 'Courier', monospace;
+                    font-weight: bold;
+                    font-size: 1.3vh;
+                }
+                img {
+                    width: 100%;
+                }
+                .row {
+                    display: flex;
+                    flex-direction: row;
                 }
 
             &lt;/style>
@@ -111,18 +125,22 @@ class BulletEntry extends HTMLElement {
                         &lt;div class="dropdownContainer">
                             &lt;button class="dropdownButton">v&lt;/button>
                             &lt;div class="dropdown">
-                                &lt;p id="edit">Edit&lt;/p>
-                                &lt;p id="delete">Delete&lt;/p>
-                                &lt;p id="add">Add&lt;/p>
-                                &lt;p id="done">Mark Done&lt;/p>
-                                &lt;select id="features"> 
-                                    &lt;option id="normal" value="normal">Normal&lt;/option> 
-                                    &lt;option id="important" value="important">Important&lt;/option>
-                                    &lt;option id="workRelated" value="workRelated">School/Coursework&lt;/option>
-                                    &lt;option id="household" value="household">Household/Chores&lt;/option>
-                                    &lt;option id="personal" value="personal">Personal/Well-being&lt;/option>
-                                    &lt;option id="other" value="other">Other&lt;/option>
-                                &lt;/select>
+                                &lt;div class="row">
+                                    &lt;p id="edit">&lt;img src="images/Edit.svg" alt="Edit">&lt;/p>
+                                    &lt;p id="delete">&lt;img src="images/Delete.svg" alt="Delete">&lt;/p>
+                                    &lt;p id="add">&lt;img src="images/Add.svg" alt="Add">&lt;/p>
+                                    &lt;p id="done">&lt;img src="images/Done.svg" alt="Done">&lt;/p>
+                                &lt;/div>
+                                &lt;div class="featuresContainer">
+                                    &lt;select id="features"> 
+                                        &lt;option id="normal" value="normal">Normal&lt;/option> 
+                                        &lt;option id="important" value="important">Important&lt;/option>
+                                        &lt;option id="workRelated" value="workRelated">School/Coursework&lt;/option>
+                                        &lt;option id="household" value="household">Household/Chores&lt;/option>
+                                        &lt;option id="personal" value="personal">Personal/Well-being&lt;/option>
+                                        &lt;option id="other" value="other">Other&lt;/option>
+                                    &lt;/select>
+                                &lt;/div>
                             &lt;/div>
                         &lt;/div>
                         &lt;div class="child">&lt;/div>
@@ -354,7 +372,7 @@ customElements.define('bullet-entry', BulletEntry);
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Thu Jun 03 2021 00:57:17 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Jun 04 2021 01:03:46 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
